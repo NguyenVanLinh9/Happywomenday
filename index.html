@@ -8,32 +8,40 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 50px;
-            background: url('background.jpg') no-repeat center center fixed;
+            margin: 20px;
+            background: url('background.png') no-repeat center center fixed;
             background-size: cover;
+            transition: background 0.5s ease-in-out;
         }
         input {
             padding: 10px;
             font-size: 16px;
+            width: 80%;
+            max-width: 300px;
+            margin-bottom: 10px;
         }
         button {
             padding: 10px;
             font-size: 16px;
-            margin-left: 10px;
+            width: 80%;
+            max-width: 150px;
+            margin-bottom: 20px;
         }
         .image-container {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-top: 20px;
-            height: 60vh;
+            height: 50vh;
             position: relative;
+            flex-direction: column;
         }
         img {
-            max-width: 60%;
+            max-width: 90%;
             height: auto;
-            transform: scale(1.5);
+            transform: scale(1.2);
             transition: transform 0.3s ease-in-out;
+            border-radius: 10px;
         }
         .confetti-container {
             position: absolute;
@@ -54,46 +62,43 @@
     <div class="image-container">
         <div class="confetti-container" id="confetti-container"></div>
         <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
+        <button id="downloadBtn" style="display:none; margin-top: 10px;" onclick="downloadImage()">Tải ảnh về</button>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <script>
         function showImage() {
             let name = document.getElementById("nameInput").value.toLowerCase().trim();
-            let imagePath = `images/${name}.jpg`;
+            let imagePath = `images/${name}.png`;
             
             let imgElement = document.getElementById("displayImage");
+            let downloadBtn = document.getElementById("downloadBtn");
             imgElement.src = imagePath;
             imgElement.style.display = "block";
             
-            // Kiểm tra xem ảnh có tải được không
+            document.body.style.background = "url('new-background.png') no-repeat center center fixed";
+            document.body.style.backgroundSize = "cover";
+
             imgElement.onload = function() {
                 launchConfetti();
+                downloadBtn.style.display = "block";
             };
             imgElement.onerror = function() {
                 alert("Không tìm thấy ảnh, vui lòng kiểm tra lại tên!");
                 imgElement.style.display = "none";
+                downloadBtn.style.display = "none";
             };
         }
 
         function launchConfetti() {
             var duration = 5 * 1000; // 5 giây
             var end = Date.now() + duration;
-            var container = document.getElementById("confetti-container");
-
+            
             (function frame() {
                 confetti({
-                    particleCount: 5,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0.5, y: 0.5 },
-                    zIndex: 1000
-                });
-                confetti({
-                    particleCount: 5,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 0.5, y: 0.5 },
-                    zIndex: 1000
+                    particleCount: 10,
+                    spread: 70,
+                    origin: { y: 0.6 }
                 });
                 
                 if (Date.now() < end) {
@@ -101,8 +106,16 @@
                 }
             })();
         }
+
+        function downloadImage() {
+            let imgElement = document.getElementById("displayImage");
+            let link = document.createElement("a");
+            link.href = imgElement.src;
+            link.download = "mon-qua-8-3.png";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     </script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.0"></script>
 </body>
 </html>
