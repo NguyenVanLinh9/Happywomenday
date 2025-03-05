@@ -21,10 +21,17 @@
             font-size: 16px;
             margin-left: 10px;
         }
-        img {
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-top: 20px;
-            max-width: 100%;
+        }
+        img {
+            max-width: 80%;
             height: auto;
+            transform: scale(1.2);
+            transition: transform 0.3s ease-in-out;
         }
     </style>
 </head>
@@ -34,33 +41,22 @@
     <input type="text" id="nameInput" placeholder="Nhập tên...">
     <button onclick="showImage()">Xem quà</button>
     <br>
-    <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
+    <div class="image-container">
+        <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
+    </div>
 
     <script>
         function showImage() {
-    let name = document.getElementById("nameInput").value.trim().toLowerCase();
-    let formattedName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").toLowerCase();
-    let imagePath = `images/${formattedName}.jpg`;
-
-    let imgElement = document.getElementById("displayImage");
-
-    // Kiểm tra xem ảnh có tồn tại không
-    fetch(imagePath, { method: "HEAD" })
-        .then(response => {
-            if (response.ok) {
-                imgElement.src = imagePath;
-                imgElement.style.display = "block";
-                confetti(); // Hiệu ứng pháo giấy
-            } else {
-                alert("Không tìm thấy ảnh cho tên này. Vui lòng kiểm tra lại!");
-                imgElement.style.display = "none";
-            }
-        })
-        .catch(error => {
-            console.error("Lỗi tải ảnh:", error);
-            imgElement.style.display = "none";
-        });
-}
+            let name = document.getElementById("nameInput").value.toLowerCase();
+            let imagePath = `images/${name}.jpg`;
+            
+            let imgElement = document.getElementById("displayImage");
+            imgElement.src = imagePath;
+            imgElement.style.display = "block";
+            
+            // Hiệu ứng pháo giấy
+            confetti();
+        }
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.0"></script>
