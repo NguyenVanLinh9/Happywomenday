@@ -38,16 +38,29 @@
 
     <script>
         function showImage() {
-            let name = document.getElementById("nameInput").value.toLowerCase();
-            let imagePath = `images/${name}.jpg`;
-            
-            let imgElement = document.getElementById("displayImage");
-            imgElement.src = imagePath;
-            imgElement.style.display = "block";
-            
-            // Hiệu ứng pháo giấy
-            confetti();
-        }
+    let name = document.getElementById("nameInput").value.trim().toLowerCase();
+    let formattedName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").toLowerCase();
+    let imagePath = `images/${formattedName}.jpg`;
+
+    let imgElement = document.getElementById("displayImage");
+
+    // Kiểm tra xem ảnh có tồn tại không
+    fetch(imagePath, { method: "HEAD" })
+        .then(response => {
+            if (response.ok) {
+                imgElement.src = imagePath;
+                imgElement.style.display = "block";
+                confetti(); // Hiệu ứng pháo giấy
+            } else {
+                alert("Không tìm thấy ảnh cho tên này. Vui lòng kiểm tra lại!");
+                imgElement.style.display = "none";
+            }
+        })
+        .catch(error => {
+            console.error("Lỗi tải ảnh:", error);
+            imgElement.style.display = "none";
+        });
+}
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.0"></script>
