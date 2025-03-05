@@ -57,12 +57,36 @@
             
             // Kiểm tra xem ảnh có tải được không
             imgElement.onload = function() {
-                confetti();
+                launchConfetti();
             };
             imgElement.onerror = function() {
                 alert("Không tìm thấy ảnh, vui lòng kiểm tra lại tên!");
                 imgElement.style.display = "none";
             };
+        }
+
+        function launchConfetti() {
+            var duration = 5 * 1000; // 5 giây
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+                
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
         }
     </script>
     
