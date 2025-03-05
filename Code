@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Món Quà 8/3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: url('/mnt/data/image.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Món Quà 8/3</h1>
+    <p>Nhập họ tên của bạn để nhận món quà đặc biệt!</p>
+    <input type="text" id="nameInput" placeholder="Nhập tên...">
+    <button onclick="showImage()">Xem quà</button>
+    <br>
+    <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
+
+    <script>
+        function showImage() {
+            let name = document.getElementById("nameInput").value.toLowerCase();
+            let imagePath = `images/${name}.jpg`;
+            
+            let imgElement = document.getElementById("displayImage");
+            imgElement.src = imagePath;
+            imgElement.style.display = "block";
+            
+            // Hiệu ứng pháo giấy
+            confetti();
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.0"></script>
+</body>
+</html>
