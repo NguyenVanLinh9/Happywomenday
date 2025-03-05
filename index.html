@@ -26,11 +26,12 @@
             justify-content: center;
             align-items: center;
             margin-top: 20px;
+            height: 60vh;
         }
         img {
-            max-width: 80%;
+            max-width: 60%;
             height: auto;
-            transform: scale(1.2);
+            transform: scale(1.5);
             transition: transform 0.3s ease-in-out;
         }
     </style>
@@ -47,15 +48,21 @@
 
     <script>
         function showImage() {
-            let name = document.getElementById("nameInput").value.toLowerCase();
+            let name = document.getElementById("nameInput").value.toLowerCase().trim();
             let imagePath = `images/${name}.jpg`;
             
             let imgElement = document.getElementById("displayImage");
             imgElement.src = imagePath;
             imgElement.style.display = "block";
             
-            // Hiệu ứng pháo giấy
-            confetti();
+            // Kiểm tra xem ảnh có tải được không
+            imgElement.onload = function() {
+                confetti();
+            };
+            imgElement.onerror = function() {
+                alert("Không tìm thấy ảnh, vui lòng kiểm tra lại tên!");
+                imgElement.style.display = "none";
+            };
         }
     </script>
     
