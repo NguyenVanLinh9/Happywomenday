@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHÚC MỪNG NGÀY QUỐC TẾ PHỤ NỮ 8/3</title>
+    <title>Món Quà</title>
     <style>
-      body {
+        body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin: 0;
@@ -66,17 +66,18 @@
     </style>
 </head>
 <body>
-    <h1>CHÚC MỪNG NGÀY QUỐC TẾ PHỤ NỮ 8/3</h1>
-    <p>Nhập họ tên (viết thường không dấu) của bạn để nhận món quà đặc biệt!</p>
-    <input type="text" id="nameInput" placeholder="Nhập tên...">
-    <button onclick="showImage()">Xem quà</button>
-    <br>
-    <div class="image-container">
-        <div class="confetti-container" id="confetti-container"></div>
-        <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
-        <button id="downloadBtn" style="display:none; margin-top: 10px;" onclick="downloadImage()">Tải ảnh về</button>
+    <div class="content">
+        <p>Nhập họ tên của bạn để nhận món quà đặc biệt!</p>
+        <input type="text" id="nameInput" placeholder="Nhập tên...">
+        <button onclick="showImage()">Xem quà</button>
+        <br>
+        <div class="image-container">
+            <div class="confetti-container" id="confetti-container"></div>
+            <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
+            <button id="downloadBtn" style="display:none; margin-top: 10px;" onclick="downloadImage()">Tải ảnh về</button>
+        </div>
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <script>
         function showImage() {
@@ -123,7 +124,7 @@
             let imgElement = document.getElementById("displayImage");
             let link = document.createElement("a");
             link.href = imgElement.src;
-            link.download = "mon-qua-8-3.png";
+            link.download = "mon-qua.png";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
