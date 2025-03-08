@@ -103,20 +103,20 @@
     <script>
         function showImage() {
             let name = document.getElementById("nameInput").value.toLowerCase().trim();
-            let imagePath = `https://drive.google.com/uc?export=view&id=${getImageId(name)}`;
+            let imageId = getImageId(name);
+            console.log("ID ảnh:", imageId); // Kiểm tra ID có chính xác không
             
+            if (!imageId) {
+                alert("Tên không hợp lệ hoặc chưa có ảnh!");
+                return;
+            }
+        
+            let imagePath = `https://drive.google.com/uc?export=view&id=${imageId}`;
             let imgElement = document.getElementById("displayImage");
-            let downloadBtn = document.getElementById("downloadBtn");
             imgElement.src = imagePath;
             imgElement.style.display = "block";
-            
-            document.body.style.background = "url('new-background.png') no-repeat center center fixed";
-            document.body.style.backgroundSize = "cover";
+            }
 
-            imgElement.onload = function() {
-                launchConfetti();
-                downloadBtn.style.display = "block";
-            };
             imgElement.onerror = function() {
                 alert("Không tìm thấy ảnh, vui lòng kiểm tra lại tên!");
                 imgElement.style.display = "none";
