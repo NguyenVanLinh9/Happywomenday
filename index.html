@@ -101,13 +101,12 @@
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <script>
-        function showImage() {
+     function showImage() {
             let name = document.getElementById("nameInput").value.toLowerCase().trim();
-            let imagePath = `images/${name}.png`;
+            let imagePath = `images/${name}.jpg`;
             
             let imgElement = document.getElementById("displayImage");
             let downloadBtn = document.getElementById("downloadBtn");
-            
             imgElement.src = imagePath;
             imgElement.style.display = "block";
             
@@ -124,6 +123,7 @@
                 downloadBtn.style.display = "none";
             };
         }
+
 
         function launchConfetti() {
             var duration = 5 * 1000; // 5 giây
