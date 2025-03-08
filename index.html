@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHÚC MỪNG NGÀY QUỐC TẾ PHỤ NỮ 8/3</title>
+    <title>CHÚC MỪNG NGÀY 8/3</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,50 +16,58 @@
             background: url('background.png') no-repeat center center fixed;
             background-size: cover;
             transition: background 0.5s ease-in-out;
-            flex-direction: column;
         }
         .content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            height: 100vh;
+            width: 90%;
+            max-width: 400px;
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         p {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             font-style: italic;
             margin-bottom: 15px;
             text-align: center;
         }
         input {
-            padding: 8px;
-            font-size: 14px;
-            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
             max-width: 300px;
             margin-bottom: 10px;
             text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
         button {
-            padding: 8px;
-            font-size: 14px;
-            width: 80%;
-            max-width: 150px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 200px;
             margin-bottom: 20px;
             cursor: pointer;
+            border: none;
+            background-color: #ff69b4;
+            color: white;
+            border-radius: 5px;
         }
         .image-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            height: 50vh;
-            position: relative;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin-top: 20px;
+            position: relative;
         }
         img {
             max-width: 100%;
@@ -71,22 +79,23 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            top: 300px;
+            top: 50%;
             left: 0;
+            transform: translateY(-50%);
             pointer-events: none;
         }
     </style>
 </head>
 <body>
     <div class="content">
-        <p style="text-align: center;">Nhập họ tên (viết liền chữ thường không dấu) <br>của bạn để nhận món quà đặc biệt!</p>
+        <p>Nhập họ tên (viết liền chữ thường không dấu) <br>của bạn để nhận món quà đặc biệt!</p>
         <input type="text" id="nameInput" placeholder="Nhập tên...">
         <button onclick="showImage()">Nhận Quà</button>
         <br>
         <div class="image-container">
             <div class="confetti-container" id="confetti-container"></div>
             <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
-            <button id="downloadBtn" style="display:none; margin-top: 10px;" onclick="downloadImage()">Nhận Quà</button>
+            <button id="downloadBtn" style="display:none; margin-top: 10px;" onclick="downloadImage()">Tải Xuống</button>
         </div>
     </div>
     
@@ -94,7 +103,7 @@
     <script>
         function showImage() {
             let name = document.getElementById("nameInput").value.toLowerCase().trim();
-            let imagePath = `images/${name}.png`;
+            let imagePath = `https://drive.google.com/uc?export=view&id=${getImageId(name)}`;
             
             let imgElement = document.getElementById("displayImage");
             let downloadBtn = document.getElementById("downloadBtn");
@@ -115,24 +124,28 @@
             };
         }
 
-        function launchConfetti() {
-            var duration = 5 * 1000; // 5 giây
-            var end = Date.now() + duration;
-            
-            (function frame() {
-                confetti({
-                    particleCount: 10,
-                    spread: 70,
-                    origin: { y: 0.9 }
-                });
-                
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            })();
+        function getImageId(name) {
+            const imageMap = {
+                "nguyenthivien": "1TahjgPSCCy92cXMmGun8hCLkaIxSBewF",
+                "nguyenthivuong": "1QjTjqtZzaP-Fx_p8HD75NqfqKPqiALkf",
+                "nguyenthuhuyen": "1_GWndYZMx19wPjaG_YUjr3Tc4JZ04sAT",
+                "tongminhphuong": "1ESLAzea3E4AUoxjv1nf44m7xA7kOzWQW",
+                "tongthibien": "1RuxaVgcg9R9ggPn2erWFJgDYr6TyGG1c",
+                "tongthihai": "1hJvMmjuDxBO2K8RWl7ZgPG-VC67DAhWJ",
+                "nguyenlanhuong": "1T-36U_QkWy264uf7EfMP1q4WW-YkKL7b",
+                "thanthiphuonglinh": "1sttN7eI6Km0YWXGEU6eMK8kVNWQsT11W",
+                "dothithu": "1tj7mMbostbwlfnsUtizzmag2oOvRtuuw",
+                "luongminhanh": "18IHHX-hsSjdDWL_RQqM4O0v2mQou1Jh3",
+                "luongminhngoc": "1XCzpYOabI5PAPSiWwzTVyM96bv3DUB5-",
+                "nguyenbaophuong": "1Rv3lwyymAg6kL7T5v_iAHcFWtP_3LXe0",
+                "nguyenphuongthao": "1oOH08xX1L2eYh_iH5Svw2zkH70gJZiRu",
+                "nguyenthiha": "17NIERcZoV3mZ_9Q7nCx8I6QD6VBz8AC-",
+                "nguyenthithuhien": "1SG3wqsOtYvn5fo3759f5y-HRDyH0Ael_",
+                "nguyenthivan": "1i96DiF20wNPHAcqcxMVykduGiheyHnNp",
+                "nguyenphuongnhi": "1D1Ukex_1K1AsIf_mh7dTIakrLpMdxnPY"
+            };
+            return imageMap[name] || "";
         }
-
-        function downloadImage() {
-            let imgElement = document.getElementById("displayImage");
-            let link = document.createElement("a");
-            link
+    </script>
+</body>
+</html>
