@@ -16,6 +16,18 @@
             background-size: cover;
             transition: background 0.5s ease-in-out;
         }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
         .image-container {
             position: absolute;
             width: 100%;
@@ -37,9 +49,30 @@
             left: 0;
             pointer-events: none;
         }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #ff69b4;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
     </style>
 </head>
 <body>
+    <div class="content" id="inputSection">
+        <p>Nhập họ tên (viết liền chữ thường không dấu) <br>của bạn để nhận món quà đặc biệt!</p>
+        <input type="text" id="nameInput" placeholder="Nhập tên...">
+        <button onclick="showImage()">Nhận Quà</button>
+    </div>
     <div class="image-container">
         <div class="confetti-container" id="confetti-container"></div>
         <img id="displayImage" style="display:none;" alt="Hình ảnh của bạn sẽ xuất hiện ở đây">
@@ -48,8 +81,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <script>
         function showImage() {
-            let params = new URLSearchParams(window.location.search);
-            let name = params.get("name");
+            let name = document.getElementById("nameInput").value.toLowerCase().trim();
             if (!name) return;
             
             let imagePath = `images/${name}.png`;
@@ -60,11 +92,14 @@
             document.body.style.background = "url('new-background.png') no-repeat center center fixed";
             document.body.style.backgroundSize = "cover";
 
+            document.getElementById("inputSection").style.display = "none";
+
             imgElement.onload = function() {
                 launchConfetti();
             };
             imgElement.onerror = function() {
                 alert("Không tìm thấy ảnh, vui lòng kiểm tra lại tên!");
+                document.getElementById("inputSection").style.display = "block";
             };
         }
 
@@ -75,8 +110,6 @@
                 origin: { y: 0.6 }
             });
         }
-
-        window.onload = showImage;
     </script>
 </body>
 </html>
